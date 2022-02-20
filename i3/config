@@ -34,8 +34,14 @@ bindsym $mod+o exec firefox
 # File manager
 bindsym $mod+p exec nemo
 
+# Spotify
+bindsym $mod+m exec spotify
+
 # Kitty
 bindsym $mod+Return exec kitty
+
+# Kitty custom layout
+bindsym $mod+Shift+Return exec sh .config/i3/myscripts/kitty_layout.sh
 
 # Kill focused window
 bindsym $mod+Shift+q kill
@@ -44,10 +50,10 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec rofi -show run 
 
 # Lockscreen
-bindsym $mod+Shift+l exec sh .i3lock.sh
+bindsym $mod+Shift+l exec xsecurelock
 
 # Screenshot 
-bindsym $mod+Shift+s exec maim -u ~/Pictures/Screenshots/$(date +%s).png && notify-send "Smile for the camera"  
+bindsym $mod+Shift+s exec maim -u ~/Pictures/Screenshots/$(date +%s).png  
 
 # Change focus
 bindsym $mod+j focus left
@@ -55,7 +61,7 @@ bindsym $mod+k focus down
 bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
 
-# Alternatively, you can use the cursor keys:
+# Alternatively, you can use the cursor keys
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
@@ -153,13 +159,8 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
+mode "Resize" {
+     
         bindsym j resize shrink width 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
         bindsym l resize shrink height 10 px or 10 ppt
@@ -178,20 +179,21 @@ mode "resize" {
 }
 
 # Rezise
-bindsym $mod+r mode "resize"
+bindsym $mod+r mode "Resize"
 
-## startup
+########## Custom Section ############
+
+## Startup
 exec --no-startup-id picom --config .config/compton.conf 
-exec --no-startup-id feh --bg-fill .green.jpg
+exec --no-startup-id feh --bg-fill .wallpaper.jpg
 exec --no-startup-id setxkbmap fr
-exec --no-startup-id polybar --config=.config/polybar/config.ini main
-exec --no-startup-id sh .synclient.sh
-exec --no-startup-id sh conky.conf
+exec --no-startup-id sh .config/i3/myscripts/synclient.sh
+exec --no-startup-id sh .config/i3/myscripts/polybar.sh
 
-## keyboard
+## Keyboard
 exec --no-startup-id xset r rate 220 32
 exec --no-startup-id syndaemon -i 1 -K -t -d
 
 
-## gamma settings
+## Gamma settings
 exec --no-startup-id xrandr --output eDP1 --gamma 0.6:0.6:0.6 --brightness 1.4
